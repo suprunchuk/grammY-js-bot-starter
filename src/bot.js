@@ -1,15 +1,11 @@
-require("dotenv").config();
-const {
-  Bot,
-  session,
-  GrammyError,
-  HttpError,
-  InlineKeyboard,
-} = require("grammy");
-const { run } = require("@grammyjs/runner");
-const { responseTime } = require("./middleware/logger");
-const { autoRetry } = require("@grammyjs/auto-retry");
-const { hydrate } = require("@grammyjs/hydrate");
+import dotenv from "dotenv";
+import { Bot, session, GrammyError, HttpError, InlineKeyboard } from "grammy";
+import { run } from "@grammyjs/runner";
+import { responseTime } from "./middleware/logger.js";
+import { autoRetry } from "@grammyjs/auto-retry";
+import { hydrate } from "@grammyjs/hydrate";
+
+dotenv.config();
 
 // Create bot
 const bot = new Bot(process.env.BOT_TOKEN);
@@ -139,4 +135,4 @@ bot.catch((err) => {
 });
 run(bot);
 
-module.exports.bot = bot;
+export { bot };

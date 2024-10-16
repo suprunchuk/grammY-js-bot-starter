@@ -1,10 +1,11 @@
 # grammY Telegram Bot Starter
 
-This is a starter project for creating Telegram bots using the grammY framework. The project is named "grammY-js-bot-starter" and provides a solid foundation for building feature-rich Telegram bots with JavaScript.
+This is a starter project for creating Telegram bots using the grammY framework. The project is named "grammY-js-bot-starter" and provides a solid foundation for building feature-rich Telegram bots with JavaScript and ECMAScript Modules.
 
 ## Features
 
 - Built with grammY framework
+- Uses ECMAScript Modules for better code organization
 - Middleware for response time measurement
 - Session management
 - Robust error handling
@@ -99,6 +100,14 @@ This starter includes robust error handling:
 
 To test error handling, use the `/error` command when interacting with the bot.
 
+## ECMAScript Modules
+
+This project uses ECMAScript Modules (ES Modules) instead of CommonJS. This means:
+
+- We use `import` and `export` statements instead of `require()` and `module.exports`.
+- The `package.json` file includes `"type": "module"` to enable ES Module support.
+- File extensions (.js) are required when importing local files.
+
 ## Deployment
 
 For information on deploying your bot to various hosting platforms, please refer to the [grammY Hosting Comparison Guide](https://grammy.dev/hosting/comparison). This guide provides detailed instructions and comparisons for deploying your bot on different hosting services.
@@ -111,6 +120,8 @@ To add new features or commands to your bot:
 2. Create new middleware functions in `src/middleware/` if needed
 3. Update the README with any new commands or features
 
+Remember to use ES Module syntax when importing and exporting.
+
 ## Contributing
 
 Feel free to submit issues or pull requests if you have suggestions for improvements or find any bugs.
@@ -121,11 +132,12 @@ This project is open-source and available under the MIT License.
 
 ## Русская версия (Russian Version)
 
-Это стартовый проект для создания Telegram-ботов с использованием фреймворка grammY. Проект называется "grammY-js-bot-starter" и предоставляет прочную основу для создания функциональных Telegram-ботов на JavaScript.
+Это стартовый проект для создания Telegram-ботов с использованием фреймворка grammY. Проект называется "grammY-js-bot-starter" и предоставляет прочную основу для создания функциональных Telegram-ботов на JavaScript с использованием ECMAScript модулей.
 
 ### Особенности
 
 - Построен на фреймворке grammY
+- Использует ECMAScript модули для лучшей организации кода
 - Промежуточное ПО для измерения времени отклика
 - Управление сессиями
 - Надежная обработка ошибок
@@ -184,5 +196,13 @@ This project is open-source and available under the MIT License.
 
 - Бот использует long polling для постоянного опроса сервера Telegram на наличие обновлений.
 - Ошибки логируются, и бот останавливается при критических ошибках (GrammyError или HttpError) для предотвращения бесконечных циклов ошибок.
+
+### ECMAScript модули
+
+Этот проект использует ECMAScript модули (ES модули) вместо CommonJS. Это означает:
+
+- Мы используем операторы `import` и `export` вместо `require()` и `module.exports`.
+- Файл `package.json` включает `"type": "module"` для включения поддержки ES модулей.
+- При импорте локальных файлов требуется указывать расширения файлов (.js).
 
 Для получения дополнительной информации о структуре проекта, плагинах, обработке ошибок, развертывании и настройке, пожалуйста, обратитесь к английской версии README выше.

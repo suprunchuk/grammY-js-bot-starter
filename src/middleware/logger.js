@@ -5,4 +5,4 @@ const responseTime = async (ctx, next) => {
   console.log(`Response time: ${ms}ms`);
 };
 
-module.exports = { responseTime };
+export { responseTime };
