@@ -26,7 +26,7 @@ This is a starter project for creating Telegram bots using the grammY framework.
    ```
 4. Run the bot:
    ```
-   npm run dev
+   npm start
    ```
 
 ## Project Structure
@@ -133,7 +133,7 @@ This project is open-source and available under the MIT License.
    ```
 4. Запустите бота:
    ```
-   npm run dev
+   npm start
    ```
 
 ### Доступные команды
