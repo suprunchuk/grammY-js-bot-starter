@@ -25,9 +25,14 @@ This is a starter project for creating Telegram bots using the grammY framework.
    BOT_TOKEN=your_bot_token_here
    ```
 4. Run the bot:
-   ```
-   npm start
-   ```
+   - For production:
+     ```
+     npm start
+     ```
+   - For development (with nodemon):
+     ```
+     npm run dev
+     ```
 
 ## Project Structure
 
@@ -50,18 +55,27 @@ The `/count` command displays an interactive counter with the following inline k
 - `-`: Decrement the counter
 - `🔄 Reset`: Reset the counter to 0
 
-## Long Polling Mode
+## Running the Bot
 
-This starter uses long polling mode for running your bot. This mode is suitable for both development and production environments.
+This starter provides two ways to run your bot:
 
-To run the bot:
+1. Production mode:
 
-1. Ensure your `.env` file contains your bot token.
-2. Run the bot using `npm run dev`.
+   ```
+   npm start
+   ```
 
-In this mode:
+   This runs the bot using Node.js directly.
 
-- The bot continuously polls the Telegram server for updates.
+2. Development mode:
+   ```
+   npm run dev
+   ```
+   This uses nodemon to run the bot, which automatically restarts the bot when you make changes to the code.
+
+In both modes:
+
+- The bot uses long polling to continuously poll the Telegram server for updates.
 - Errors are logged, and the bot stops on critical errors (GrammyError or HttpError) to prevent infinite error loops.
 
 ## Plugins
@@ -132,9 +146,14 @@ This project is open-source and available under the MIT License.
    BOT_TOKEN=ваш_токен_бота_здесь
    ```
 4. Запустите бота:
-   ```
-   npm start
-   ```
+   - Для продакшн:
+     ```
+     npm start
+     ```
+   - Для разработки (с nodemon):
+     ```
+     npm run dev
+     ```
 
 ### Доступные команды
 
@@ -143,18 +162,27 @@ This project is open-source and available under the MIT License.
 - `/count`: Отображение интерактивного счетчика с встроенной клавиатурой
 - `/error`: Тестирование обработки ошибок (вызывает тестовую ошибку)
 
-### Режим Long Polling
+### Запуск бота
 
-Этот стартер использует режим long polling для работы вашего бота. Этот режим подходит как для разработки, так и для продакшн-среды.
+Этот стартер предоставляет два способа запуска вашего бота:
 
-Для запуска бота:
+1. Режим продакшн:
 
-1. Убедитесь, что ваш файл `.env` содержит токен бота.
-2. Запустите бота с помощью команды `npm run dev`.
+   ```
+   npm start
+   ```
 
-В этом режиме:
+   Это запускает бота напрямую с использованием Node.js.
 
-- Бот постоянно опрашивает сервер Telegram на наличие обновлений.
+2. Режим разработки:
+   ```
+   npm run dev
+   ```
+   Это использует nodemon для запуска бота, который автоматически перезапускает бота при внесении изменений в код.
+
+В обоих режимах:
+
+- Бот использует long polling для постоянного опроса сервера Telegram на наличие обновлений.
 - Ошибки логируются, и бот останавливается при критических ошибках (GrammyError или HttpError) для предотвращения бесконечных циклов ошибок.
 
 Для получения дополнительной информации о структуре проекта, плагинах, обработке ошибок, развертывании и настройке, пожалуйста, обратитесь к английской версии README выше.
