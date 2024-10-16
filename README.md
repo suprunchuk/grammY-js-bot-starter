@@ -1,6 +1,6 @@
 # grammY Telegram Bot Starter
 
-This is a starter project for creating Telegram bots using the grammY framework.
+This is a starter project for creating Telegram bots using the grammY framework. The project is named "grammY-js-bot-starter" and provides a solid foundation for building feature-rich Telegram bots with JavaScript.
 
 ## Features
 
@@ -107,7 +107,7 @@ This project is open-source and available under the MIT License.
 
 ## Русская версия (Russian Version)
 
-Это стартовый проект для создания Telegram-ботов с использованием фреймворка grammY.
+Это стартовый проект для создания Telegram-ботов с использованием фреймворка grammY. Проект называется "grammY-js-bot-starter" и предоставляет прочную основу для создания функциональных Telegram-ботов на JavaScript.
 
 ### Особенности
 
