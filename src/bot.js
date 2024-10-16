@@ -9,12 +9,14 @@ const {
 const { run } = require("@grammyjs/runner");
 const { responseTime } = require("./middleware/logger");
 const { autoRetry } = require("@grammyjs/auto-retry");
+const { hydrate } = require("@grammyjs/hydrate");
 
 // Create bot
 const bot = new Bot(process.env.BOT_TOKEN);
 
 // Middleware
 bot.api.config.use(autoRetry()); // Add auto-retry for flood control
+bot.use(hydrate()); // Add hydrate plugin
 bot.use(responseTime);
 bot.use(session({ initial: () => ({ counter: 0 }) }));
 
@@ -76,10 +78,26 @@ bot.on("callback_query:data", async (ctx) => {
       console.log("Unknown callback query data:", action);
   }
 
+  // Using hydrate plugin to simplify message editing
   await ctx.answerCallbackQuery();
-  await ctx.editMessageText(getCounterMessage(ctx.session.counter).text, {
-    reply_markup: getCounterMessage(ctx.session.counter).reply_markup,
-  });
+
+  // Demonstrating the difference between hydrated context and regular API calls
+  if (ctx.session.counter % 2 === 0) {
+    // Using hydrated context (simplified)
+    await ctx.editMessageText(getCounterMessage(ctx.session.counter).text, {
+      reply_markup: getCounterMessage(ctx.session.counter).reply_markup,
+    });
+  } else {
+    // Using regular API call (more verbose)
+    await ctx.api.editMessageText(
+      ctx.chat.id,
+      ctx.callbackQuery.message.message_id,
+      getCounterMessage(ctx.session.counter).text,
+      {
+        reply_markup: getCounterMessage(ctx.session.counter).reply_markup,
+      }
+    );
+  }
 });
 
 // Function to create the counter message and keyboard
@@ -110,34 +128,15 @@ function handleError(err) {
 }
 
 // Start the bot
-if (process.env.NODE_ENV === "production") {
-  // Webhook mode
-  const handleUpdate = async (req, res) => {
-    try {
-      await bot.handleUpdate(req.body);
-    } catch (err) {
-      console.error("Error in webhook handler:", err);
-    } finally {
-      res.sendStatus(200);
-    }
-  };
-  bot.catch((err) => {
-    handleError(err);
-    // In webhook mode, we don't need to stop the bot on errors
-  });
-  module.exports = handleUpdate;
-} else {
-  // Long polling mode
-  console.log("Bot is running in development mode (long polling)");
-  bot.catch((err) => {
-    handleError(err);
-    // In long polling mode, we might want to stop the bot on critical errors
-    if (err instanceof GrammyError || err instanceof HttpError) {
-      console.error("Critical error occurred, stopping the bot");
-      process.exit(1);
-    }
-  });
-  run(bot);
-}
+console.log("Bot is running in long polling mode");
+bot.catch((err) => {
+  handleError(err);
+  // In long polling mode, we might want to stop the bot on critical errors
+  if (err instanceof GrammyError || err instanceof HttpError) {
+    console.error("Critical error occurred, stopping the bot");
+    process.exit(1);
+  }
+});
+run(bot);
 
 module.exports.bot = bot;

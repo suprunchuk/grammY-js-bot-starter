@@ -4,7 +4,6 @@
   "main": "src/bot.js",
   "scripts": {
     "start": "node src/bot.js",
-    "dev": "cross-env NODE_ENV=development nodemon src/bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,12 +12,12 @@
   "description": "",
   "dependencies": {
     "@grammyjs/auto-retry": "^2.0.2",
+    "@grammyjs/hydrate": "^1.4.1",
     "@grammyjs/runner": "^2.0.3",
     "dotenv": "^16.4.5",
     "grammy": "^1.30.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "nodemon": "^3.1.7"
   }
 }

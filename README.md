@@ -1,15 +1,17 @@
 # grammY Telegram Bot Starter
 
-This is a starter project for creating Telegram bots using the grammY framework, with easy deployment to Zeabur.
+This is a starter project for creating Telegram bots using the grammY framework.
 
 ## Features
 
 - Built with grammY framework
 - Middleware for response time measurement
 - Session management
-- Robust error handling for both webhook and long polling modes
-- Interactive counter with inline keyboard
-- Easy deployment to Zeabur
+- Robust error handling
+- Interactive counter with inline keyboard as example of session management
+- Efficient long polling with @grammyjs/runner
+- Automatic flood control with @grammyjs/auto-retry
+- Enhanced object interactions with @grammyjs/hydrate
 
 ## Getting Started
 
@@ -22,7 +24,7 @@ This is a starter project for creating Telegram bots using the grammY framework,
    ```
    BOT_TOKEN=your_bot_token_here
    ```
-4. Run the bot in development mode:
+4. Run the bot:
    ```
    npm run dev
    ```
@@ -32,7 +34,6 @@ This is a starter project for creating Telegram bots using the grammY framework,
 - `src/bot.js`: Main bot file with command handlers and error handling
 - `src/middleware/logger.js`: Custom middleware for response time measurement
 - `.env`: Environment variables (don't commit this file)
-- `Procfile`: For Zeabur deployment
 
 ## Available Commands
 
@@ -49,17 +50,13 @@ The `/count` command displays an interactive counter with the following inline k
 - `-`: Decrement the counter
 - `🔄 Reset`: Reset the counter to 0
 
-## Long Polling and Webhook Modes
+## Long Polling Mode
 
-This starter supports both long polling and webhook modes for running your bot:
+This starter uses long polling mode for running your bot. This mode is suitable for both development and production environments.
 
-### Long Polling Mode (Development)
+To run the bot:
 
-In development, the bot runs in long polling mode by default. This mode is suitable for local development and testing.
-
-To run in long polling mode:
-
-1. Ensure `NODE_ENV` is not set to "production" in your `.env` file.
+1. Ensure your `.env` file contains your bot token.
 2. Run the bot using `npm run dev`.
 
 In this mode:
@@ -67,47 +64,30 @@ In this mode:
 - The bot continuously polls the Telegram server for updates.
 - Errors are logged, and the bot stops on critical errors (GrammyError or HttpError) to prevent infinite error loops.
 
-### Webhook Mode (Production)
+## Plugins
 
-For production deployment, the bot uses webhook mode. This mode is more efficient for handling high volumes of messages.
+This starter project uses the following grammY plugins:
 
-To use webhook mode:
+1. [@grammyjs/runner](https://grammy.dev/plugins/runner): Provides an efficient way to run your bot, handling concurrent bot updates effectively.
 
-1. Set `NODE_ENV=production` in your environment variables.
-2. Deploy your bot to a hosting platform that supports webhooks (like Zeabur).
-3. The hosting platform should call the `handleUpdate` function exported from `src/bot.js` for each incoming update.
+2. [@grammyjs/auto-retry](https://grammy.dev/plugins/auto-retry): Automatically retries failed requests to the Telegram API, helping to handle network issues and rate limits.
 
-In this mode:
+3. [@grammyjs/hydrate](https://grammy.dev/plugins/hydrate): Adds useful methods to the context object and API results, making it easier to interact with Telegram objects.
 
-- The bot receives updates via webhooks set up by your hosting platform.
-- Errors are logged but don't stop the bot, ensuring continuous operation.
-- The server always responds with a 200 status to acknowledge receipt of the update.
-
-## Deployment to Zeabur
-
-1. Create a new project on Zeabur
-2. Connect your GitHub repository
-3. Set the following environment variables in Zeabur:
-   - `BOT_TOKEN`: Your Telegram Bot Token
-   - `NODE_ENV`: Set to "production"
-4. Deploy your project
-
-Note: The host URL is automatically provided by Zeabur. You don't need to set it manually. Zeabur will handle the webhook setup for you.
+4. [Session](https://grammy.dev/plugins/session): Allows you to store data between multiple updates from the same user, enabling stateful interactions.
 
 ## Error Handling
 
-This starter includes robust error handling for both webhook and long polling modes:
+This starter includes robust error handling:
 
-- In production (webhook mode):
-
-  - Errors are logged but don't stop the bot
-  - The server always responds with a 200 status to acknowledge receipt of the update
-
-- In development (long polling mode):
-  - Errors are logged
-  - The bot stops on critical errors (GrammyError or HttpError) to prevent infinite error loops
+- Errors are logged
+- The bot stops on critical errors (GrammyError or HttpError) to prevent infinite error loops
 
 To test error handling, use the `/error` command when interacting with the bot.
+
+## Deployment
+
+For information on deploying your bot to various hosting platforms, please refer to the [grammY Hosting Comparison Guide](https://grammy.dev/hosting/comparison). This guide provides detailed instructions and comparisons for deploying your bot on different hosting services.
 
 ## Customization
 
@@ -127,16 +107,18 @@ This project is open-source and available under the MIT License.
 
 ## Русская версия (Russian Version)
 
-Это стартовый проект для создания Telegram-ботов с использованием фреймворка grammY и простым развертыванием на Zeabur.
+Это стартовый проект для создания Telegram-ботов с использованием фреймворка grammY.
 
 ### Особенности
 
 - Построен на фреймворке grammY
 - Промежуточное ПО для измерения времени отклика
 - Управление сессиями
-- Надежная обработка ошибок для режимов webhook и long polling
-- Интерактивный счетчик с встроенной клавиатурой
-- Простое развертывание на Zeabur
+- Надежная обработка ошибок
+- Интерактивный счетчик с встроенной клавиатурой в качестве примера работы с сессиями
+- Эффективный long polling с использованием @grammyjs/runner
+- Автоматический контроль флуда с помощью @grammyjs/auto-retry
+- Улучшенное взаимодействие с объектами с помощью @grammyjs/hydrate
 
 ### Начало работы
 
@@ -149,7 +131,7 @@ This project is open-source and available under the MIT License.
    ```
    BOT_TOKEN=ваш_токен_бота_здесь
    ```
-4. Запустите бота в режиме разработки:
+4. Запустите бота:
    ```
    npm run dev
    ```
@@ -161,17 +143,13 @@ This project is open-source and available under the MIT License.
 - `/count`: Отображение интерактивного счетчика с встроенной клавиатурой
 - `/error`: Тестирование обработки ошибок (вызывает тестовую ошибку)
 
-### Режимы Long Polling и Webhook
+### Режим Long Polling
 
-Этот стартер поддерживает оба режима работы бота: long polling и webhook:
+Этот стартер использует режим long polling для работы вашего бота. Этот режим подходит как для разработки, так и для продакшн-среды.
 
-#### Режим Long Polling (Разработка)
+Для запуска бота:
 
-В режиме разработки бот по умолчанию работает в режиме long polling. Этот режим подходит для локальной разработки и тестирования.
-
-Для запуска в режиме long polling:
-
-1. Убедитесь, что `NODE_ENV` не установлен в значение "production" в вашем файле `.env`.
+1. Убедитесь, что ваш файл `.env` содержит токен бота.
 2. Запустите бота с помощью команды `npm run dev`.
 
 В этом режиме:
@@ -179,20 +157,4 @@ This project is open-source and available under the MIT License.
 - Бот постоянно опрашивает сервер Telegram на наличие обновлений.
 - Ошибки логируются, и бот останавливается при критических ошибках (GrammyError или HttpError) для предотвращения бесконечных циклов ошибок.
 
-#### Режим Webhook (Продакшн)
-
-Для развертывания в продакшн бот использует режим webhook. Этот режим более эффективен для обработки большого объема сообщений.
-
-Для использования режима webhook:
-
-1. Установите `NODE_ENV=production` в переменных окружения.
-2. Разверните вашего бота на платформе хостинга, которая поддерживает webhooks (например, Zeabur).
-3. Платформа хостинга должна вызывать функцию `handleUpdate`, экспортированную из `src/bot.js`, для каждого входящего обновления.
-
-В этом режиме:
-
-- Бот получает обновления через webhooks, настроенные вашей платформой хостинга.
-- Ошибки логируются, но не останавливают бота, обеспечивая непрерывную работу.
-- Сервер всегда отвечает статусом 200 для подтверждения получения обновления.
-
-Для получения дополнительной информации о структуре проекта, развертывании и настройке, пожалуйста, обратитесь к английской версии README выше.
+Для получения дополнительной информации о структуре проекта, плагинах, обработке ошибок, развертывании и настройке, пожалуйста, обратитесь к английской версии README выше.
